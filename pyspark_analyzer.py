@@ -1,6 +1,8 @@
 import pyspark
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import avg, floor, date_diff, current_timestamp, to_timestamp
+from pyspark.sql.functions import *
+from pyspark.sql.window import Window
+
 
 
 def create_spark_session():
@@ -34,7 +36,7 @@ def read_parquet_file(spark) -> pyspark.sql.dataframe.DataFrame:
     :param spark:
     :return df_processed:pyspark.sql.DataFrame
     """
-    df = spark.read.parquet("user.parquet")
+    df = spark.read.parquet("./data/user.parquet")
     df_processed = calculate_age_and_usage_years(df)
     return df_processed
 

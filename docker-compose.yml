@@ -9,10 +9,10 @@ services:
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
     ports:
       - "7077:7077"       # Spark master port
-      - "8080:8080"       # Web UI
+      - "8090:8080"       # Web UI
 
     volumes:
-      - /Users/serdar/PycharmProjects/huawei-data-analysis/data:/data
+      - /Users/aliozer/PycharmProjects/huawei-data-analaysis/data:/data
     networks:
       - spark-net
 
@@ -25,7 +25,7 @@ services:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
     volumes:
-      - /Users/serdar/PycharmProjects/huawei-data-analysis/data:/data
+      - /Users/aliozer/PycharmProjects/huawei-data-analaysis/data:/data
     networks:
       - spark-net
 
