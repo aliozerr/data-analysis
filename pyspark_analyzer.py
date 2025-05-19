@@ -4,26 +4,27 @@ from pyspark.sql.functions import *
 from pyspark.sql.window import Window
 
 
-
-def create_spark_session():
+def create_spark_session() -> SparkSession:
     """
     Create spark session
+    :return: SparkSession
     """
     spark = SparkSession.builder.appName("UserDataAnalysis").getOrCreate()
     return spark
 
 
-def calculate_age_and_usage_years(df:pyspark.sql.DataFrame) -> pyspark.sql.dataframe.DataFrame:
+def calculate_age_and_usage_years(df: pyspark.sql.DataFrame) -> pyspark.sql.dataframe.DataFrame:
     """
     Take DataFrane formatted data for calculating age and usage_years
     :param df:pyspark.sql.DataFrame
     :return df:pyspark.sql.DataFrame
     """
-    df = df.withColumn("age",floor(date_diff(current_timestamp(),to_timestamp("dob_date"))/365.25))
-    df = df.withColumn("usage_years",floor(date_diff(current_timestamp(),to_timestamp("registered_date"))/365.25))
+    df = df.withColumn("age", floor(date_diff(current_timestamp(), to_timestamp("dob_date")) / 365.25))
+    df = df.withColumn("usage_years", floor(date_diff(current_timestamp(), to_timestamp("registered_date")) / 365.25))
     return df
 
-def create_temp_view(df:pyspark.sql.DataFrame):
+
+def create_temp_view(df: pyspark.sql.DataFrame):
     """
     Create temp. view called Users
     """
@@ -45,7 +46,10 @@ def question_1_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     '''
     Erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya uygulamasını
     ortalama ne kadar süredir kullandıklarını bulun.
+    spark: SparkSession
+    :return df:pyspark.sql.dataframe.DataFrame
     '''
+
     print("Question 1 , Spark SQL Solution :\n")
     result = spark.sql(
         """
@@ -57,6 +61,7 @@ def question_1_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     result.show()
     return result
 
+
 def question_1_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     """
     Erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya uygulamasını
@@ -64,14 +69,13 @@ def question_1_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     """
     print("Question 1, DataframeAPI Solution : \n")
     result = df.groupBy("gender") \
-                .agg(round(avg("age"),4).alias("avg_age"),round(avg("usage_years"),4).alias("avg_usage_years")) \
-                .orderBy("gender")
+        .agg(round(avg("age"), 4).alias("avg_age"), round(avg("usage_years"), 4).alias("avg_usage_years")) \
+        .orderBy("gender")
     result.show()
     return result
 
 
-
-def question_2_spark_sql(spark)-> pyspark.sql.dataframe.DataFrame:
+def question_2_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     '''
     Ülkelere göre erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya
     uygulamasını ortalama ne kadar süredir kullandıklarını bulun.
@@ -91,15 +95,16 @@ def question_2_spark_sql(spark)-> pyspark.sql.dataframe.DataFrame:
     result.show()
     return result
 
-def question_2_dataframe_api(df)-> pyspark.sql.dataframe.DataFrame:
+
+def question_2_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     """
     Ülkelere göre erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya
     uygulamasını ortalama ne kadar süredir kullandıklarını bulun.
     """
     print("Question 2,DataframeAPI Solution : \n")
-    result = df.groupBy("location_country","gender") \
-                .agg(round(avg("age"),4).alias("avg_age"),round(avg("usage_years"),4).alias("avg_usage_years")) \
-                .orderBy("location_country","gender")
+    result = df.groupBy("location_country", "gender") \
+        .agg(round(avg("age"), 4).alias("avg_age"), round(avg("usage_years"), 4).alias("avg_usage_years")) \
+        .orderBy("location_country", "gender")
     result.show()
     return result
 
@@ -147,9 +152,9 @@ def question_3_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
 
 
 def question_3_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
-    '''
+    """
     Ülkelere göre en yaşlı 3 erkek ve kadın kullanıcıyı bulun.
-    '''
+    """
     print("Question 3 , Dataframe API Solution : \n")
 
     full_name_df = df.withColumn("full_name", concat_ws(" ", col("name_first"), col("name_last")))

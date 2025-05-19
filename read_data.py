@@ -9,7 +9,6 @@ from pathlib import Path
 
 DATA_PATH = Path("./data/")
 
-
 def is_data_exists() -> bool:
     """
     Check user.parquet file if it's exists or not
