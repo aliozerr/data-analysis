@@ -10,7 +10,7 @@ def plot_gender_pie(df: pd.DataFrame , output_path: str = None) -> None:
     Pie chart of gender distribution.
     :param df: pd.DataFrame
     :param output_path: str
-    :return:
+    :return: None
     """
     counts = df["gender"].value_counts()
     plt.figure()

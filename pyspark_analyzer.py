@@ -1,3 +1,8 @@
+"""
+This module contains functions to create spark session, read parquet file
+and answer specific questions using both Spark SQL and DataFrame API.
+"""
+
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
@@ -7,6 +12,7 @@ from pyspark.sql.window import Window
 def create_spark_session() -> SparkSession:
     """
     Create spark session
+    :param: None
     :return: SparkSession
     """
     spark = SparkSession.builder.appName("UserDataAnalysis").getOrCreate()
@@ -16,8 +22,8 @@ def create_spark_session() -> SparkSession:
 def calculate_age_and_usage_years(df: pyspark.sql.DataFrame) -> pyspark.sql.dataframe.DataFrame:
     """
     Take DataFrane formatted data for calculating age and usage_years
-    :param df:pyspark.sql.DataFrame
-    :return df:pyspark.sql.DataFrame
+    :param df: pyspark.sql.DataFrame
+    :return df: pyspark.sql.DataFrame
     """
     df = df.withColumn("age", floor(date_diff(current_timestamp(), to_timestamp("dob_date")) / 365.25))
     df = df.withColumn("usage_years", floor(date_diff(current_timestamp(), to_timestamp("registered_date")) / 365.25))
@@ -27,11 +33,13 @@ def calculate_age_and_usage_years(df: pyspark.sql.DataFrame) -> pyspark.sql.data
 def create_temp_view(df: pyspark.sql.DataFrame):
     """
     Create temp. view called Users
+    :param df: pyspark.sql.DataFrame
+    :return: None
     """
     df.createTempView("Users")
 
 
-def read_parquet_file(spark) -> pyspark.sql.dataframe.DataFrame:
+def read_parquet_file(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame:
     """
     Read parquet format file , process it and return
     :param spark:
@@ -42,13 +50,13 @@ def read_parquet_file(spark) -> pyspark.sql.dataframe.DataFrame:
     return df_processed
 
 
-def question_1_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
-    '''
-    Erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya uygulamasını
-    ortalama ne kadar süredir kullandıklarını bulun.
-    spark: SparkSession
+def question_1_spark_sql(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame:
+    """
+    Question 1: Find average age of male and female users. In addition, how long have they been using
+    the social media application on average.
+    :param spark: SparkSession
     :return df:pyspark.sql.dataframe.DataFrame
-    '''
+    """
 
     print("Question 1 , Spark SQL Solution :\n")
     result = spark.sql(
@@ -62,10 +70,12 @@ def question_1_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     return result
 
 
-def question_1_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
+def question_1_dataframe_api(df: pyspark.sql.dataframe.DataFrame) -> pyspark.sql.dataframe.DataFrame:
     """
-    Erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya uygulamasını
-    ortalama ne kadar süredir kullandıklarını bulun.
+    Question 1: Find average age of male and female users. In addition, how long have they been using
+    the social media application on average.
+    :param df: pyspark.sql.dataframe.DataFrame
+    :return df:pyspark.sql.dataframe.DataFrame
     """
     print("Question 1, DataframeAPI Solution : \n")
     result = df.groupBy("gender") \
@@ -75,11 +85,13 @@ def question_1_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     return result
 
 
-def question_2_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
-    '''
-    Ülkelere göre erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya
-    uygulamasını ortalama ne kadar süredir kullandıklarını bulun.
-    '''
+def question_2_spark_sql(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame:
+    """
+    Question 2: Find average age of male and female users by countries. In addition, how long have they
+    been using the social media application on average.
+    :param spark: SparkSession
+    :return df:pyspark.sql.dataframe.DataFrame
+    """
     print("Question 2 , Spark SQL Solution :\n")
     result = spark.sql(
         """
@@ -96,10 +108,12 @@ def question_2_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     return result
 
 
-def question_2_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
+def question_2_dataframe_api(df: pyspark.sql.dataframe.DataFrame) -> pyspark.sql.dataframe.DataFrame:
     """
-    Ülkelere göre erkek ve kadın kullanıcıların yaş ortalamasını bulun. Ayrıca, sosyal medya
-    uygulamasını ortalama ne kadar süredir kullandıklarını bulun.
+    Question 2: Find average age of male and female users by countries. In addition, how long have they
+    been using the social media application on average.
+    :param df: pyspark.sql.dataframe.DataFrame
+    :return df:pyspark.sql.dataframe.DataFrame
     """
     print("Question 2,DataframeAPI Solution : \n")
     result = df.groupBy("location_country", "gender") \
@@ -109,10 +123,12 @@ def question_2_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     return result
 
 
-def question_3_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
-    '''
-    Ülkelere göre en yaşlı 3 erkek ve kadın kullanıcıyı bulun.
-    '''
+def question_3_spark_sql(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame:
+    """
+    Question 3: Find top 3 oldest male and female users by countries.
+    :param spark: SparkSession
+    :return df:pyspark.sql.dataframe.DataFrame
+    """
     print("Question 3 , Spark SQL Solution : \n")
     result = spark.sql(
         """
@@ -151,9 +167,11 @@ def question_3_spark_sql(spark) -> pyspark.sql.dataframe.DataFrame:
     return result
 
 
-def question_3_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
+def question_3_dataframe_api(df: pyspark.sql.dataframe.DataFrame) -> pyspark.sql.dataframe.DataFrame:
     """
-    Ülkelere göre en yaşlı 3 erkek ve kadın kullanıcıyı bulun.
+    Question 3: Find top 3 oldest male and female users by countries.
+    :param df: pyspark.sql.dataframe.DataFrame
+    :return df:pyspark.sql.dataframe.DataFrame
     """
     print("Question 3 , Dataframe API Solution : \n")
 
@@ -171,7 +189,6 @@ def question_3_dataframe_api(df) -> pyspark.sql.dataframe.DataFrame:
     top_3_female = ranked_female_df.filter(col("rank") <= 3)
 
     result = top_3_male.unionByName(top_3_female)
-    result = result.select("full_name", "age", "gender", "location_country", "rank").orderBy("location_country",
-                                                                                             "gender", "rank")
+    result = result.select("full_name", "age", "gender", "location_country", "rank").orderBy("location_country", "gender", "rank")
     result.show(50)
     return result
