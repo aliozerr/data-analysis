@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   spark-master:
     image: bitnami/spark:latest
@@ -12,7 +10,7 @@ services:
       - "8090:8080"       # Web UI
 
     volumes:
-      - /Users/aliozer/PycharmProjects/huawei-data-analaysis/data:/data
+      - ./data:/data
     networks:
       - spark-net
 
@@ -25,7 +23,7 @@ services:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
     volumes:
-      - /Users/aliozer/PycharmProjects/huawei-data-analaysis/data:/data
+      - ./data:/data
     networks:
       - spark-net
 
