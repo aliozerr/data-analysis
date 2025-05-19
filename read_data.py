@@ -1,4 +1,9 @@
-import json
+"""
+This module is responsible for fetching user data from the API, flattening the data and saving it in parquet format.
+It also includes functions to check if the data exists, delete existing data, and load the data from the parquet file.
+"""
+
+
 import os
 from typing import List, Any
 import pandas
@@ -23,6 +28,7 @@ def is_data_exists() -> bool:
 def delete_existing_user_data():
     """
     Delete user.parquet file if exists
+    :return: None
     """
     relative_path = Path.joinpath(DATA_PATH, "user.parquet")
     if is_data_exists():
@@ -39,7 +45,8 @@ def load_data() -> pandas.DataFrame:
     df = pd.read_parquet(relative_path)
     return df
 
-def flatten_and_drop_unused_columns(data_list:List[Any]) -> pandas.DataFrame:
+
+def flatten_and_drop_unused_columns(data_list: List[Any]) -> pandas.DataFrame:
     """
     Make data flatten and drop unused columns from data.
     :param data_list:List[Any]: input for any kind of list
@@ -77,10 +84,11 @@ def flatten_and_drop_unused_columns(data_list:List[Any]) -> pandas.DataFrame:
     return df
 
 
-def save_data(df:pandas.DataFrame):
+def save_data(df: pandas.DataFrame):
     """
     Take dataframe and save as parquet format to the path
     :param df: pandas.DataFrane
+    :return: None
     """
     relative_path = Path.joinpath(DATA_PATH, "user.parquet")
     try:
@@ -89,12 +97,12 @@ def save_data(df:pandas.DataFrame):
         print("Parquet dosyası oluşturulurken hata oluştu ", e)
 
 
-def get_data(read_new_data:bool=False,get_data_min:float=10)->pandas.DataFrame:
+def get_data(read_new_data: bool = False , get_data_min: float = 10) -> pandas.DataFrame:
     """
     Get data from https://randomuser.me/api/
     :param read_new_data : user input for fetching new data
     :param get_data_min : how many minutes to fetch
-    :return : pandas dataframe
+    :return : pandas.DataFrame
     """
     data_list = []
     end_time = time() + int(get_data_min * 60)

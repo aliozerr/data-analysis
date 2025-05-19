@@ -1,4 +1,3 @@
-# TODO doc string
 """
 This module contains functions to visualize data using matplotlib and pandas.
 """
@@ -6,8 +5,13 @@ This module contains functions to visualize data using matplotlib and pandas.
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def plot_gender_pie(df:pd.DataFrame,output_path: str = None) -> None:
-    #TODO add doc string
+def plot_gender_pie(df: pd.DataFrame , output_path: str = None) -> None:
+    """
+    Pie chart of gender distribution.
+    :param df: pd.DataFrame
+    :param output_path: str
+    :return:
+    """
     counts = df["gender"].value_counts()
     plt.figure()
     plt.pie(counts.values, labels=counts.index, autopct='%1.1f%%', startangle=90)
@@ -17,11 +21,11 @@ def plot_gender_pie(df:pd.DataFrame,output_path: str = None) -> None:
     else:
         plt.show()
 
-def plot_gender_hist_by_country(df: pd.DataFrame, output_path: str = None) ->None:
+def plot_gender_hist_by_country(df: pd.DataFrame , output_path: str = None) ->None:
     """
     Histogram of gender variation by country.
-    :param df:
-    :param output_path:
+    :param df: pd.DataFrame
+    :param output_path: str
     :return: if output_path is None, show the plot, else save it to the path
     """
     grp = df.groupby(['location_country', 'gender']).size().unstack(fill_value=0)
@@ -37,11 +41,11 @@ def plot_gender_hist_by_country(df: pd.DataFrame, output_path: str = None) ->Non
     else:
         plt.show()
 
-def plot_age_distribution_bar(df: pd.DataFrame, output_path: str = None) -> None:
+def plot_age_distribution_bar(df: pd.DataFrame , output_path: str = None) -> None:
     """
     Bar chart of age distribution.
-    :param df:
-    :param output_path:
+    :param df: pd.DataFrame
+    :param output_path: str
     :return: if output_path is None, show the plot, else save it to the path
     """
     counts = df['dob_age'].value_counts().sort_index()
@@ -59,8 +63,8 @@ def plot_age_distribution_bar(df: pd.DataFrame, output_path: str = None) -> None
 def plot_usage_vs_avg(df: pd.DataFrame, output_path: str = None) -> None:
     """
     Histogram of usage years with average line.
-    :param df:
-    :param output_path:
+    :param df: pd.DataFrame
+    :param output_path: str
     :return: if output_path is None, show the plot, else save it to the path
     """
     values = df['registered_age']
@@ -81,8 +85,8 @@ def plot_usage_vs_avg(df: pd.DataFrame, output_path: str = None) -> None:
 def plot_country_distribution_pie(df: pd.DataFrame, output_path: str = None) -> None:
     """
     Pie chart of country distribution.
-    :param df:
-    :param output_path:
+    :param df: pd.DataFrame
+    :param output_path: str
     :return: if output_path is None, show the plot, else save it to the path
     """
     counts = df['location_country'].value_counts()
