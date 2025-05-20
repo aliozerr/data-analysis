@@ -97,7 +97,7 @@ data-analysis/
 python main.py read_data [--new-data] [--min-data MIN_DATA] [--verbose]
 ```
 
-### `solve`
+#### `solve`
 **Description:** Solve specific questions based on the question ID
 
 **Options:**
@@ -109,7 +109,7 @@ python main.py read_data [--new-data] [--min-data MIN_DATA] [--verbose]
 python main.py solve --question-id QUESTION_ID [--verbose]
 ```
 
-### `visualize`
+#### `visualize`
 **Description:** Perform exploratory data analysis (EDA) on the data
 
 **Options:**
@@ -120,7 +120,7 @@ python main.py solve --question-id QUESTION_ID [--verbose]
 python main.py visualize --plot_path PLOT_PATH
 ```
 
-### `create`
+#### `create`
 **Description:** Create plots and save them to the specified path
 
 **Options:**
@@ -131,7 +131,7 @@ python main.py visualize --plot_path PLOT_PATH
 python main.py create --plot_path PLOT_PATH
 ```
 
-### `check-plots`
+#### `check-plots`
 **Description:** Check if the plots have been created successfully
 
 **Options:**
