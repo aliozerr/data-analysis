@@ -1,11 +1,17 @@
 """
 This module contains functions to visualize data using matplotlib and pandas.
 """
+import os
 
 import matplotlib.pyplot as plt
 import pandas as pd
+from pathlib import Path
+from  dotenv import  load_dotenv
 
-def plot_gender_pie(df: pd.DataFrame , output_path: str = None) -> None:
+load_dotenv()
+PLOT_PATH = Path(os.getenv("PLOT_PATH"))
+
+def plot_gender_pie(df: pd.DataFrame , output_path: str = PLOT_PATH) -> None:
     """
     Pie chart of gender distribution.
     :param df: pd.DataFrame
@@ -16,12 +22,10 @@ def plot_gender_pie(df: pd.DataFrame , output_path: str = None) -> None:
     plt.figure()
     plt.pie(counts.values, labels=counts.index, autopct='%1.1f%%', startangle=90)
     plt.title('Gender Distribution')
-    if output_path:
-        plt.savefig(output_path)
-    else:
-        plt.show()
+    plt_path = os.path.join(output_path,"plot_gender_pie")
+    plt.savefig(plt_path)
 
-def plot_gender_hist_by_country(df: pd.DataFrame , output_path: str = None) ->None:
+def plot_gender_hist_by_country(df: pd.DataFrame , output_path: str = PLOT_PATH) -> None:
     """
     Histogram of gender variation by country.
     :param df: pd.DataFrame
@@ -36,12 +40,10 @@ def plot_gender_hist_by_country(df: pd.DataFrame , output_path: str = None) ->No
     plt.title('Gender Percentage by Country')
     plt.legend(title='Gender')
     plt.tight_layout()
-    if output_path:
-        plt.savefig(output_path)
-    else:
-        plt.show()
+    plt_path = os.path.join(output_path,"plot_gender_hist_by_country")
+    plt.savefig(plt_path)
 
-def plot_age_distribution_bar(df: pd.DataFrame , output_path: str = None) -> None:
+def plot_age_distribution_bar(df: pd.DataFrame , output_path: str = PLOT_PATH) -> None:
     """
     Bar chart of age distribution.
     :param df: pd.DataFrame
@@ -55,12 +57,10 @@ def plot_age_distribution_bar(df: pd.DataFrame , output_path: str = None) -> Non
     plt.ylabel('Count')
     plt.title('Age Distribution')
     plt.tight_layout()
-    if output_path:
-        plt.savefig(output_path)
-    else:
-        plt.show()
+    plt_path = os.path.join(output_path, "plot_age_distribution_bar")
+    plt.savefig(plt_path)
 
-def plot_usage_vs_avg(df: pd.DataFrame, output_path: str = None) -> None:
+def plot_usage_vs_avg(df: pd.DataFrame, output_path: str = PLOT_PATH) -> None:
     """
     Histogram of usage years with average line.
     :param df: pd.DataFrame
@@ -77,12 +77,10 @@ def plot_usage_vs_avg(df: pd.DataFrame, output_path: str = None) -> None:
     plt.title('Usage Years Distribution vs Average')
     plt.legend()
     plt.tight_layout()
-    if output_path:
-        plt.savefig(output_path)
-    else:
-        plt.show()
+    plt_path = os.path.join(output_path, "plot_usage_vs_avg")
+    plt.savefig(plt_path)
 
-def plot_country_distribution_pie(df: pd.DataFrame, output_path: str = None) -> None:
+def plot_country_distribution_pie(df: pd.DataFrame, output_path: str = PLOT_PATH) -> None:
     """
     Pie chart of country distribution.
     :param df: pd.DataFrame
@@ -94,8 +92,7 @@ def plot_country_distribution_pie(df: pd.DataFrame, output_path: str = None) -> 
     explode = [0.3 if country == "Turkey" else 0.0 for country in counts.index]
     plt.pie(counts.values, labels=counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
     plt.title('Country Distribution')
-    if output_path:
-        plt.savefig(output_path)
-    else:
-        plt.show()
+    plt_path = os.path.join(output_path, "plot_country_distribution_pie")
+    plt.savefig(plt_path)
+
 

@@ -11,8 +11,10 @@ import pandas as pd
 import requests
 from time import time, sleep
 from pathlib import Path
+from  dotenv import  load_dotenv
 
-DATA_PATH = Path("./data/")
+load_dotenv()
+DATA_PATH  = Path(os.getenv("DATA_PATH"))
 
 def is_data_exists() -> bool:
     """

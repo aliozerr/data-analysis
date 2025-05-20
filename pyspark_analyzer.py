@@ -96,7 +96,7 @@ def question_2_spark_sql(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame
     result = spark.sql(
         """
         SELECT 
-            u.location_country AS country , 
+            u.location_country , 
             u.gender , ROUND(AVG(u.age),4) AS avg_age , 
             ROUND(AVG(u.usage_years),4) AS avg_usage_years
         FROM Users u
