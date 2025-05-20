@@ -1,24 +1,23 @@
-# Data Analysis Project
+## Data Analysis Project
 
 A comprehensive data analysis platform built with PySpark, designed for efficient data processing and visualization.
 
-## 📑 Introduction
+### Introduction
 
-This project is a robust data analysis solution that:
-
-- Utilizes **PySpark** for high-performance data processing and analysis
-- Runs in a **Docker container** for consistent deployment across environments
+This project is a data analysis solution that:
+- Utilizes PySpark for high-performance data processing and analysis
+- Runs in a Docker container for consistent deployment across environments
 - Features dedicated modules for data ingestion, analysis, and visualization
 - Provides a convenient CLI interface for executing various data operations
 
-## 🔧 Requirements
+###  Requirements
 
-### Core Dependencies
+#### Core Dependencies
 - Docker
   - PySpark Docker image
 - Python 3.9
 
-### Python Packages
+#### Python Packages
 - PySpark 3.5.5
 - Pandas 2.2.3
 - PyArrow 20.0.0
@@ -27,11 +26,10 @@ This project is a robust data analysis solution that:
 - Matplotlib 3.9.4
 - NumPy 2.0.2
 
-## 📁 Project Structure
+###  Project Structure
 
 ```
 data-analysis/
-├── .venv/
 ├── data/
 ├── plots/
 ├── configurations.py
@@ -47,7 +45,7 @@ data-analysis/
 └── user_data_analysis.py
 ```
 
-##  Installation
+###  Installation
 
 1. **Clone the repository**
 
@@ -67,7 +65,7 @@ data-analysis/
    python main.py
    ```
 
-##  Docker Deployment
+###  Docker Deployment
 
 1. **Build the Docker image**
    ```bash
@@ -84,9 +82,9 @@ data-analysis/
    docker-compose down
    ```
 
-##  Command Line Interface
+###  Command Line Interface
 
-### `read_data`
+#### `read_data`
 **Description:** Reads data from API and saves it in parquet format
 
 **Options:**
