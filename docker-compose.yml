@@ -7,10 +7,9 @@ services:
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
     ports:
       - "7077:7077"       # Spark master port
-      - "8090:8080"       # Web UI
-
+      - "8090:8080"       # Web UI port
     volumes:
-      - ./data:/data
+      - "${DATA_PATH}:/data"
     networks:
       - spark-net
 
@@ -23,7 +22,7 @@ services:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
     volumes:
-      - ./data:/data
+      - "${DATA_PATH}:/data"
     networks:
       - spark-net
 

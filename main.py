@@ -22,6 +22,7 @@ def cli():
     pass
 
 @cli.command(name='get-data', help=":Fetch data from API" )
+@click.option("--new_data",default=False, help="read new data from api")
 @click.option("--data_min",default=1, help="read data from api that minute")
 @click.option("--verbose",default=False, help="print with verbose option")
 def get_data(new_data, data_min,verbose) -> None:
@@ -52,7 +53,7 @@ def solve(question,verbose) -> None:
 
 
 
-@cli.command(name='visualize', help=":do some eda" )
+@cli.command(name='visualize', help=":Do some eda" )
 @click.option('--plot_path' , help="Path to the plot directory.")
 def visualize(plot_path) -> None:
     """
@@ -62,7 +63,7 @@ def visualize(plot_path) -> None:
     """
     visualize_plot(plot_path)
 
-@cli.command(name="create", help = "create plots and save it to the path")
+@cli.command(name="create", help = ":Create plots and save it to the path")
 @click.option("--plot_path",help = "Path to the plot directory ")
 def create_plots(plot_path) -> None:
     """
@@ -73,7 +74,7 @@ def create_plots(plot_path) -> None:
     plot_creation(plot_path)
 
 
-@cli.command("check-plots", help = "check if the plots are created or not")
+@cli.command("check-plots", help = ":Check if the plots are created or not")
 @click.option("--plot_path",help = "Path to the plot directory ")
 def check_plots(plot_path) -> None:
     """

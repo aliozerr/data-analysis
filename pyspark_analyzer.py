@@ -7,7 +7,13 @@ import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.window import Window
+from dotenv import load_dotenv
+from pathlib import Path
+import os
 
+load_dotenv()
+
+DATA_PATH = Path(os.getenv("DATA_PATH"))
 
 def create_spark_session() -> SparkSession:
     """
@@ -45,7 +51,7 @@ def read_parquet_file(spark: SparkSession) -> pyspark.sql.dataframe.DataFrame:
     :param spark:
     :return df_processed:pyspark.sql.DataFrame
     """
-    df = spark.read.parquet("./data/user.parquet")
+    df = spark.read.parquet(str(DATA_PATH))
     df_processed = calculate_age_and_usage_years(df)
     return df_processed
 

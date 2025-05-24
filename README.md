@@ -73,8 +73,16 @@ data-analysis/
    ```
 
 2. **Run the Docker container**
+
+   Docker compose needs `.env ` file to get data folder. If `.env` files is located in same folder with `docker-compose.yml` file then you can run the command below: 
    ```bash
    docker-compose up -d
+   ```
+   
+   If not located in the same folder, you can specify the path to the `.env` file using the `--env-file` option:
+   
+   ```bash
+   docker-compose --env-file /path/to/your/.env up -d
    ```
 
 3. **Stop the Docker container**
