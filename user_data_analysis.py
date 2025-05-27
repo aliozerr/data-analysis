@@ -116,6 +116,8 @@ def plot_creation(path:str = PLOT_PATH) -> None:
     :param path: str
     :return: None
     """
+    if not os.path.exists(path):
+        os.makedirs(path)
     df = get_parquet_data()
     pd_df = df.toPandas()
     if check_plots(path):
