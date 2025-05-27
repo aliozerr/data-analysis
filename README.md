@@ -59,36 +59,53 @@ data-analysis/
    ```bash
    pip install -r requirements.txt
    ```
-
-4. **Run the project**
+4. **Create .env file**
    ```bash
-   python main.py
+   touch .env
    ```
+5. **Copy variables from env.template file and write your own paths**
+   ```bash
+   vim .env
+   ```
+   - When vim editor opens, press `i` to enter insert mode , then copy the variables from `env.template` and modify them as needed.
+   - After editing, press `Esc`, type `:wq`, and hit `Enter` to save and exit.
+5. **Install Docker desktop if not already installed.It's required to run apache spark**
+   ```bash
+    https://www.docker.com/products/docker-desktop
+   ```
+### Run the project
 
-###  Docker Deployment
+   ####  Run Docker Container
 
-1. **Build the Docker image**
+   1. **Build the Docker image**
    ```bash
    docker-compose build
    ```
 
-2. **Run the Docker container**
+   2. **Run the Docker container**
 
-   Docker compose needs `.env ` file to get data folder. If `.env` files is located in same folder with `docker-compose.yml` file then you can run the command below: 
-   ```bash
-   docker-compose up -d
-   ```
+      Docker compose needs `.env ` file to get data folder. If `.env` files is located in same folder with `docker-compose.yml` file then you can run the command below: 
+      ```bash
+      docker-compose up -d
+      ```
    
-   If not located in the same folder, you can specify the path to the `.env` file using the `--env-file` option:
+      If not located in the same folder, you can specify the path to the `.env` file using the `--env-file` option:
    
-   ```bash
-   docker-compose --env-file /path/to/your/.env up -d
-   ```
+      ```bash
+      docker-compose --env-file /path/to/your/.env up -d
+      ```
 
-3. **Stop the Docker container**
-   ```bash
-   docker-compose down
-   ```
+   3. **Incase if needed to stop the Docker container**
+      ```bash
+      docker-compose down
+      ```
+
+- **Run Python code**
+
+   After the Docker container is running, you can execute 
+```bash
+   python main.py --help
+ ```
 
 ###  Command Line Interface
 
